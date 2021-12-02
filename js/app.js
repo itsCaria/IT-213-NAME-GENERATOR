@@ -13,7 +13,14 @@ function loadNames(e) {
     const amount = document.getElementById('quantity').value;
 
     // Build the URL
-    let url = 'http://uinames.com/api/?';
+    let url = 'https://randomuser.me/api/';
+    $.ajax({
+        url: 'https://randomuser.me/api/',
+        dataType: 'json',
+        success: function(data) {
+            console.log(data);
+        }
+    })
     // Read the origin and append to the url
     if(origin !== ''){
         url += `region=${origin}&`;
