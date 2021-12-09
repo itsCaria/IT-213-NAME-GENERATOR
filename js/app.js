@@ -13,7 +13,8 @@ function loadNames(e) {
     const amount = document.getElementById('quantity').value;
 
     // Build the URL
-    let url = 'https://randomuser.me/api/';
+    const url = 'https://randomuser.me/api/';
+
     $.ajax({
         url: 'https://randomuser.me/api/',
         dataType: 'json',
@@ -35,13 +36,13 @@ function loadNames(e) {
     }
 
     // Ajax Call
-    const xhr = new XMLHttpRequest();
+    const ajax = new XMLHttpRequest();
 
     // Open the connection
-    xhr.open('GET', url, true );
+    ajax.open('GET', url, true );
 
     // Execute the function
-    xhr.onload = function() {
+    ajax.onload = function() {
         if(this.status === 200) {
             const names = JSON.parse( this.responseText );
            
@@ -61,5 +62,5 @@ function loadNames(e) {
     }
 
     // Send the request
-    xhr.send();
+    ajax.send();
 }
