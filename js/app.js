@@ -13,54 +13,41 @@ function loadNames(e) {
     const amount = document.getElementById('quantity').value;
 
     // Build the URL
-    const url = 'https://randomuser.me/api/';
+    let url = 'https://randomuser.me/api/?';
 
-    $.ajax({
-        url: 'https://randomuser.me/api/',
-        dataType: 'json',
-        success: function(data) {
-            console.log(data);
-        }
-    })
     // Read the origin and append to the url
     if(origin !== ''){
-        url += `region=${origin}&`;
+        url += `nat=${origin}$`;
     }
+
     // Read the genre and append to the url
     if(genre !== ''){
         url += `gender=${genre}&`;
     }
     // Read the amount and append to the url
     if(amount !== ''){
-        url += `amount=${amount}&`;
+        url += `results=${amount}&`;
     }
 
-    // Ajax Call
-    const ajax = new XMLHttpRequest();
+    // Get API
+    fetch(url)
+    .then(res => res.json())
+    .then(data => {
+        // console.log(data);
 
-    // Open the connection
-    ajax.open('GET', url, true );
-
-    // Execute the function
-    ajax.onload = function() {
-        if(this.status === 200) {
-            const names = JSON.parse( this.responseText );
+    let names = data.results;
            
             // Insert into the HTML
 
-            let html = '<h2>Generated Names</h2>';
+            let html = '<h2><center>Generated Names</center></h2>';
             html += '<ul class="list">';
             names.forEach(function(name){
                 html += `
-                    <li>${name.name}</li>
+                    <li>${name.name.first}</li>
                 `;
             });
             html += '</ul>';
 
             document.querySelector('#result').innerHTML = html;
-        }
-    }
-
-    // Send the request
-    ajax.send();
+        });
 }
